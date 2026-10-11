@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101820">
+<title>SPORTZONE | Dunia Olahraga</title>
+<style>
+:root {
+  --dark:#101820;
+  --green:#c8ff45;
+  --paper:#f3f5f2;
+  --muted:#65716d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--dark);
+  font-family:Arial,Helvetica,sans-serif
+}
+header{
+  background:var(--dark);color:white;padding:20px 6%;
+}
+nav{
+  max-width:1200px;margin:auto;display:flex;
+  align-items:center;justify-content:space-between;gap:16px;
+}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--green)}
+nav a{color:white;text-decoration:none;font-size:13px;margin-left:18px}
+.hero{
+  background:var(--dark);color:white;padding:65px 6% 75px;
+}
+.hero-inner{max-width:1200px;margin:auto}
+.eyebrow{
+  color:var(--green);font-size:11px;letter-spacing:3px;font-weight:bold
+}
+.hero h1{
+  font-size:clamp(42px,8vw,86px);line-height:1;
+  margin:25px 0;max-width:800px
+}
+.hero p{color:#bbc5c8;line-height:1.9;max-width:570px;font-size:15px}
+.container{max-width:1200px;margin:auto;padding:45px 6%}
+.toolbar{display:flex;gap:10px;margin:22px 0;flex-wrap:wrap}
+input,select{
+  padding:13px;border:1px solid #d8ded7;background:white;
+  border-radius:5px;font-size:14px
+}
+input{flex:1;min-width:180px}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 35px}
+.categories button{
+  padding:11px 15px;border:1px solid #d8ded7;
+  background:white;border-radius:30px;cursor:pointer
+}
+.categories button.active{background:var(--dark);color:white}
+.heading{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-bottom:24px
+}
+.heading h2{font-size:28px}
+.heading small{color:var(--muted)}
+.grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px
+}
+.card{
+  background:white;border:1px solid #e3e7e0;
+  border-radius:9px;overflow:hidden;display:flex;flex-direction:column
+}
+.cover{
+  height:150px;display:grid;place-items:center;
+  font-size:55px;background:#dfe8d7
+}
+.card-content{padding:22px;display:flex;flex-direction:column;flex:1}
+.tag{color:#517523;font-size:11px;font-weight:bold;text-transform:uppercase}
+.card h3{font-size:21px;line-height:1.4;margin:12px 0}
+.card p{font-size:13px;color:var(--muted);line-height:1.8}
+.meta{font-size:11px;color:var(--muted);margin-top:auto;padding-top:12px}
+.btn{
+  border:0;background:var(--green);color:var(--dark);
+  padding:13px 17px;border-radius:4px;font-weight:bold;
+  cursor:pointer;margin-top:17px;align-self:flex-start
+}
+.btn.secondary{background:#e7ebdf}
+#reader{
+  display:none;background:white;border:1px solid #e3e7e0;
+  border-radius:10px;padding:clamp(22px,5vw,55px);
+  margin-top:35px
+}
+#reader.open{display:block}
+#reader h2{font-size:clamp(30px,6vw,48px);line-height:1.15}
+#reader .article-body{max-width:760px}
+.article-body h3{margin-top:32px;font-size:22px}
+.article-body p{font-size:15px;line-height:2;color:#39433f}
+.article-body ul{line-height:2;color:#39433f}
+.article-note{font-size:12px;color:var(--muted)}
+.empty{display:none;padding:30px 0}
+footer{
+  background:var(--dark);color:#b9c3c6;padding:38px 6%;
+  line-height:1.9;font-size:13px
+}
+footer strong{color:var(--green)}
+@media(max-width:800px){
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ nav a{margin-left:10px}
+}
+@media(max-width:540px){
+ .grid{grid-template-columns:1fr}
+ .container{padding:30px 5%}
+ header{padding:18px 5%}
+ .hero{padding:48px 5%}
+ nav{flex-wrap:wrap}
+ nav a{font-size:12px}
+ .heading h2{font-size:23px}
+ .cover{height:125px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+  <div class="logo">SPORT<span>ZONE</span></div>
+  <div>
+    <a href="#home">Beranda</a>
+    <a href="#articles">Artikel</a>
+    <a href="#about">Tentang</a>
+  </div>
+</nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="eyebrow">YOUR DAILY SPORTS HUB</div>
+    <h1>Olahraga bukan<br>sekadar permainan.</h1>
+    <p>
+      Temukan pengetahuan, teknik, strategi, dan inspirasi
+      dari dunia olahraga. Mulai dari lapangan sepak bola
+      sampai latihan sederhana di rumah.
+    </p>
+    <a class="btn" href="#articles"
+       style="display:inline-block;text-decoration:none">Jelajahi Artikel ↓</a>
+  </div>
+</section>
+
+<main class="container" id="articles">
+  <div class="heading">
+    <h2>Artikel Olahraga</h2>
+    <small id="count"></small>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Cari artikel...">
+    <select id="sort" aria-label="Urutkan artikel">
+      <option value="default">Urutan awal</option>
+      <option value="az">Judul A–Z</option>
+    </select>
+  </div>
+
+  <div class="categories" id="categories">
+    <button class="active" data-cat="Semua">Semua</button>
+    <button data-cat="Sepak Bola">Sepak Bola</button>
+    <button data-cat="Basket">Basket</button>
+    <button data-cat="Badminton">Badminton</button>
+    <button data-cat="Fitness">Fitness</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <p id="empty" class="empty">Artikel tidak ditemukan. Coba kata kunci lain.</p>
+
+  <section id="reader" aria-live="polite">
+    <button class="btn secondary" id="back">← Kembali ke artikel</button>
+    <p class="tag" id="reader-category"></p>
+    <h2 id="reader-title"></h2>
+    <p class="article-note" id="reader-meta"></p>
+    <div class="article-body" id="reader-body"></div>
+  </section>
+</main>
+
+<footer id="about">
+  <div class="logo">SPORT<span>ZONE</span></div>
+  <p>
+    Media edukasi olahraga untuk siapa saja yang ingin
+    mengenal permainan, meningkatkan kemampuan, dan hidup lebih aktif.
+  </p>
+  <p>© 2026 SPORTZONE · Informasi dan edukasi olahraga.</p>
+</footer>
+
+<script>
+const articles = [
+{
+ id:1,cat:"Sepak Bola",icon:"⚽",
+ title:"Sepak Bola: Lebih dari Sekadar Mencetak Gol",
+ intro:"Memahami olahraga yang menyatukan teknik, taktik, kerja sama, dan semangat.",
+ body:`
+ <p>Sepak bola merupakan olahraga beregu yang dimainkan oleh dua tim.
+ Setiap tim biasanya terdiri atas sebelas pemain, termasuk penjaga gawang.
+ Tujuan utamanya adalah mencetak gol ke gawang lawan dengan mengikuti
+ aturan permainan.</p>
+
+ <h3>1. Teknik dasar yang perlu dipelajari</h3>
+ <p>Passing membantu pemain mengalirkan bola kepada rekan setim.
+ Kontrol bola diperlukan agar operan bisa diterima dengan baik.
+ Dribbling digunakan untuk membawa bola melewati ruang atau lawan,
+ sementara shooting bertujuan mengarahkan bola ke gawang.</p>
+ <p>Pemain juga perlu belajar bergerak tanpa bola. Membuka ruang,
+ menawarkan jalur operan, dan memahami posisi rekan dapat membuat
+ serangan lebih efektif.</p>
+
+ <h3>2. Mengapa taktik penting?</h3>
+ <p>Teknik individu tidak selalu cukup untuk memenangkan pertandingan.
+ Tim perlu memahami kapan harus menekan lawan, kapan mempertahankan
+ bentuk pertahanan, dan kapan menguasai bola dengan sabar.
+ Taktik yang tepat bergantung pada kemampuan pemain dan situasi laga.</p>
+
+ <h3>3. Kerja sama di atas segalanya</h3>
+ <p>Sepak bola menuntut komunikasi. Pemain perlu memberi informasi,
+ membantu rekan yang kehilangan bola, dan bertanggung jawab terhadap
+ perannya. Tim yang solid tidak hanya mengandalkan satu bintang,
+ melainkan kontribusi seluruh pemain.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Belajar sepak bola berarti mengembangkan teknik, pemahaman permainan,
+ kebugaran, dan sikap sportif. Kemenangan memang menyenangkan,
+ tetapi proses berlatih dan tumbuh bersama juga merupakan bagian
+ penting dari olahraga ini.</p>`
+},
+{
+ id:2,cat:"Basket",icon:"🏀",
+ title:"Panduan Dasar Bermain Basket untuk Pemula",
+ intro:"Kenali dribbling, passing, shooting, dan cara membangun permainan tim.",
+ body:`
+ <p>Basket adalah olahraga beregu yang mengandalkan koordinasi tangan,
+ kecepatan mengambil keputusan, serta kerja sama. Pemain berusaha
+ mencetak angka dengan memasukkan bola ke keranjang lawan.</p>
+
+ <h3>1. Dribbling dan kontrol bola</h3>
+ <p>Dribbling dilakukan dengan memantulkan bola menggunakan satu tangan.
+ Berlatihlah memantulkan bola sambil berdiri terlebih dahulu, lalu
+ berjalan dan mengubah arah. Jaga kepala tetap terangkat agar kamu
+ bisa melihat posisi rekan dan lawan.</p>
+
+ <h3>2. Passing yang akurat</h3>
+ <p>Chest pass cocok untuk operan langsung dari depan dada.
+ Bounce pass memantulkan bola ke lantai agar sampai kepada rekan,
+ sedangkan overhead pass dapat digunakan untuk melewati lawan
+ dalam situasi tertentu. Pilih operan sesuai jarak dan posisi pemain.</p>
+
+ <h3>3. Shooting dan latihan</h3>
+ <p>Mulailah dari jarak dekat dengan memperhatikan keseimbangan,
+ posisi tangan, dan arah tembakan. Tingkatkan jarak secara bertahap
+ setelah gerakan terasa konsisten. Latihan rutin yang berkualitas
+ lebih bermanfaat daripada terburu-buru menembak dari jarak jauh.</p>
+
+ <h3>4. Pertahanan dan kerja sama</h3>
+ <p>Posisi tubuh yang seimbang, gerakan kaki, dan komunikasi membantu
+ pemain menjaga lawan. Saat menyerang, bergeraklah untuk membuka ruang
+ dan jangan selalu menunggu bola di satu tempat.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Bangun kemampuan dasar sebelum berfokus pada gerakan yang rumit.
+ Pemanasan, latihan teknik, istirahat, dan sikap sportif adalah
+ bagian dari perkembangan seorang pemain basket.</p>`
+},
+{
+ id:3,cat:"Badminton",icon:"🏸",
+ title:"Footwork Badminton: Fondasi Gerakan yang Efisien",
+ intro:"Pelajari pergerakan kaki agar lebih siap menjangkau shuttlecock.",
+ body:`
+ <p>Dalam badminton, kemampuan menjangkau shuttlecock bukan hanya
+ ditentukan kecepatan berlari. Pemain juga membutuhkan keseimbangan,
+ antisipasi, dan footwork yang efisien.</p>
+
+ <h3>1. Posisi siap</h3>
+ <p>Berdirilah dengan lutut sedikit ditekuk dan berat badan seimbang.
+ Posisi siap membantu kamu bereaksi ke berbagai arah.
+ Hindari berdiri terlalu tegak karena perpindahan bisa terasa lambat.</p>
+
+ <h3>2. Kembali ke posisi tengah</h3>
+ <p>Setelah memukul shuttlecock, bergeraklah kembali menuju posisi
+ yang memungkinkan kamu menjangkau kemungkinan pengembalian lawan.
+ Posisi tepatnya bergantung pada jenis pukulan, arah bola, dan situasi
+ permainan; tidak selalu berarti harus berdiri persis di tengah lapangan.</p>
+
+ <h3>3. Latihan sederhana</h3>
+ <p>Buat latihan shadow footwork tanpa shuttlecock. Bergeraklah ke
+ depan, belakang, dan samping seolah sedang mengejar bola, lalu kembali
+ ke posisi siap. Mulailah perlahan dengan teknik yang baik sebelum
+ menambah kecepatan.</p>
+
+ <h3>4. Hindari kelelahan berlebihan</h3>
+ <p>Lakukan pemanasan sebelum latihan dan berhenti jika mengalami
+ nyeri tajam atau pusing. Tambah durasi dan intensitas secara bertahap
+ agar tubuh memiliki waktu untuk beradaptasi.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Footwork yang baik bukan berarti bergerak sebanyak mungkin,
+ melainkan memilih langkah yang tepat pada waktu yang tepat.
+ Konsistensi dan keseimbangan menjadi kunci perkembangan.</p>`
+},
+{
+ id:4,cat:"Fitness",icon:"💪",
+ title:"Memulai Olahraga dari Nol: Panduan yang Realistis",
+ intro:"Bangun kebiasaan bergerak tanpa harus langsung melakukan latihan berat.",
+ body:`
+ <p>Memulai olahraga tidak harus berarti berlatih keras setiap hari.
+ Bagi pemula, kebiasaan kecil yang bisa dipertahankan sering kali
+ lebih realistis daripada jadwal yang terlalu padat.</p>
+
+ <h3>1. Tentukan target yang masuk akal</h3>
+ <p>Mulailah dengan berjalan kaki, bersepeda santai, atau melakukan
+ latihan ringan sesuai kemampuan. Pilih kegiatan yang kamu sukai
+ sehingga olahraga terasa lebih mudah menjadi bagian dari rutinitas.</p>
+
+ <h3>2. Jangan melewatkan pemanasan</h3>
+ <p>Luangkan beberapa menit untuk bergerak ringan dan melakukan
+ gerakan dinamis yang sesuai dengan latihan. Setelah selesai,
+ turunkan intensitas secara bertahap dan lakukan peregangan bila
+ terasa nyaman.</p>
+
+ <h3>3. Tingkatkan secara bertahap</h3>
+ <p>Jangan langsung menambah jarak, beban, atau durasi secara drastis.
+ Berikan tubuh kesempatan untuk menyesuaikan diri. Hari istirahat
+ merupakan bagian penting dari program latihan.</p>
+
+ <h3>4. Dukung latihan dengan kebiasaan sehat</h3>
+ <p>Tidur yang cukup, makanan beragam dan bergizi, serta hidrasi
+ mendukung pemulihan tubuh. Hindari membandingkan perkembanganmu
+ dengan orang lain karena kemampuan awal setiap orang berbeda.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Tujuan awal bukan menjadi atlet dalam semalam. Tujuannya adalah
+ membangun kebiasaan aktif yang aman, menyenangkan, dan bisa
+ dipertahankan dalam jangka panjang.</p>`
+},
+{
+ id:5,cat:"Sepak Bola",icon:"🥅",
+ title:"Memahami Formasi dan Taktik dalam Sepak Bola",
+ intro:"Bagaimana posisi, ruang, dan komunikasi memengaruhi permainan tim.",
+ body:`
+ <p>Formasi menggambarkan susunan awal pemain di lapangan.
+ Formasi membantu tim membagi peran, tetapi tidak menggambarkan
+ seluruh cara sebuah tim menyerang atau bertahan.</p>
+
+ <h3>1. Mengenal formasi</h3>
+ <p>Formasi 4-3-3 biasanya menempatkan empat pemain bertahan,
+ tiga pemain tengah, dan tiga pemain depan. Formasi 4-4-2
+ menggunakan empat pemain bertahan, empat pemain tengah,
+ serta dua pemain depan. Setiap susunan mempunyai kelebihan
+ dan tantangan yang berbeda.</p>
+
+ <h3>2. Menguasai ruang</h3>
+ <p>Tim menyerang perlu menciptakan pilihan operan dan membuka ruang.
+ Pemain dapat melebar, bergerak ke ruang antarlini, atau melakukan
+ lari tanpa bola untuk menarik perhatian pemain bertahan.</p>
+
+ <h3>3. Transisi permainan</h3>
+ <p>Ketika kehilangan bola, tim harus cepat mengambil keputusan
+ untuk menekan lawan atau kembali membentuk pertahanan.
+ Setelah merebut bola, tim dapat menyerang ruang yang terbuka
+ jika situasinya memungkinkan.</p>
+
+ <h3>4. Formasi bukan segalanya</h3>
+ <p>Keberhasilan taktik bergantung pada kemampuan pemain,
+ pemahaman peran, kondisi pertandingan, dan kualitas lawan.
+ Formasi yang terlihat bagus di atas kertas belum tentu efektif
+ jika para pemain tidak memahaminya.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Taktik adalah cara tim menggunakan ruang, waktu, dan kemampuan
+ pemain. Komunikasi serta kedisiplinan membuat formasi dapat
+ berfungsi sebagai bagian dari strategi yang lebih besar.</p>`
+},
+{
+ id:6,cat:"Fitness",icon:"🏃",
+ title:"Pemulihan Setelah Olahraga: Jangan Hanya Fokus Berlatih",
+ intro:"Tidur, nutrisi, dan waktu istirahat ikut menentukan perkembangan.",
+ body:`
+ <p>Latihan memberikan rangsangan kepada tubuh, sedangkan pemulihan
+ membantu tubuh beradaptasi terhadap beban tersebut. Karena itu,
+ berlatih lebih keras tidak selalu berarti hasil yang lebih baik.</p>
+
+ <h3>1. Tidur yang cukup</h3>
+ <p>Tidur mendukung pemulihan fisik dan fungsi mental. Kebutuhan
+ tidur berbeda menurut usia dan individu, sehingga perhatikan juga
+ rasa segar ketika bangun serta tingkat kelelahan sepanjang hari.</p>
+
+ <h3>2. Makan dan minum dengan baik</h3>
+ <p>Konsumsi makanan yang beragam dengan sumber karbohidrat,
+ protein, lemak sehat, vitamin, dan mineral. Minum secara teratur
+ dan sesuaikan asupan cairan dengan durasi latihan serta kondisi cuaca.</p>
+
+ <h3>3. Atur intensitas latihan</h3>
+ <p>Selang-selingkan latihan berat dengan sesi ringan atau istirahat.
+ Jika performa menurun terus-menerus, tubuh terasa sangat lelah,
+ atau nyeri tidak kunjung membaik, kurangi beban dan pertimbangkan
+ berkonsultasi dengan tenaga kesehatan.</p>
+
+ <h3>4. Dengarkan tubuh</h3>
+ <p>Rasa lelah ringan setelah latihan dapat terjadi, tetapi nyeri
+ tajam bukan sesuatu yang harus dipaksakan. Sesuaikan program
+ dengan kemampuan dan kondisi kesehatanmu.</p>
+
+ <h3>Kesimpulan</h3>
+ <p>Program latihan yang baik bukan hanya tentang apa yang dilakukan
+ di lapangan atau pusat kebugaran. Pemulihan adalah bagian dari
+ proses untuk menjaga konsistensi dan mendukung perkembangan.</p>`
+}
+];
+
+let category = "Semua";
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const sort = document.getElementById("sort");
+const reader = document.getElementById("reader");
+
+function render(){
+  const q = search.value.toLowerCase().trim();
+
+  let list = articles.filter(a =>
+    (category === "Semua" || a.cat === category) &&
+    (a.title + " " + a.intro + " " + a.cat).toLowerCase().includes(q)
+  );
+
+  if(sort.value === "az"){
+    list.sort((a,b) => a.title.localeCompare(b.title));
+  }
+
+  document.getElementById("count").textContent =
+    list.length + " artikel";
+
+  document.getElementById("empty").style.display =
+    list.length ? "none" : "block";
+
+  grid.innerHTML = list.map(a => `
+    <article class="card">
+      <div class="cover" aria-hidden="true">${a.icon}</div>
+      <div class="card-content">
+        <span class="tag">${a.cat}</span>
+        <h3>${a.title}</h3>
+        <p>${a.intro}</p>
+        <div class="meta">SPORTZONE · Artikel edukasi</div>
+        <button class="btn" data-id="${a.id}">Baca selengkapnya →</button>
+      </div>
+    </article>
+  `).join("");
+
+  grid.querySelectorAll("[data-id]").forEach(button => {
+    button.addEventListener("click", () => {
+      openArticle(Number(button.dataset.id));
+    });
+  });
+}
+
+function openArticle(id){
+  const a = articles.find(item => item.id === id);
+  if(!a) return;
+
+  document.getElementById("reader-category").textContent = a.cat;
+  document.getElementById("reader-title").textContent = a.title;
+  document.getElementById("reader-meta").textContent =
+    "SPORTZONE · Bacaan olahraga";
+  document.getElementById("reader-body").innerHTML = a.body;
+
+  reader.classList.add("open");
+  reader.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+document.getElementById("back").addEventListener("click", () => {
+  reader.classList.remove("open");
+  document.getElementById("articles").scrollIntoView({
+    behavior:"smooth"
+  });
+});
+
+document.querySelectorAll("[data-cat]").forEach(button => {
+  button.addEventListener("click", () => {
+    category = button.dataset.cat;
+
+    document.querySelectorAll("[data-cat]").forEach(item =>
+      item.classList.toggle("active", item === button)
+    );
+
+    reader.classList.remove("open");
+    render();
+  });
+});
+
+search.addEventListener("input", render);
+sort.addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
